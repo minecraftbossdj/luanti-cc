@@ -3,9 +3,12 @@ MODID = "cc_reimagined"
 local modpath = core.get_modpath("cc_reimagined")
 local worldpath = core.get_worldpath()
 
-dofile(modpath.."/blocks/computer_normal.lua")
+dofile(modpath.."/block/computer_normal.lua")
+dofile(modpath.."/entity/computer_normal.lua")
+
 
 HELPER =  {}
+COMPUTERS = {}
 
 function HELPER.fileExists(file_path)
     local file = io.open(worldpath..file_path,"r")
