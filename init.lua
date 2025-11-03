@@ -11,7 +11,7 @@ HELPER =  {}
 COMPUTERS = {}
 
 function HELPER.fileExists(file_path)
-    local file = io.open(WORLDPATH..file_path,"r")
+    local file = io.open(file_path,"r")
     if file then
         file:close()
         return true
