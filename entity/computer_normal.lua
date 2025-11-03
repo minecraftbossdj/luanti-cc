@@ -5,17 +5,17 @@ local FORMNAME_TURTLE_UPLOAD    = "computertest:turtle:upload:"
 
 core.register_on_player_receive_fields(function(player, formname, fields)
     local function isForm(name)
-        return string.sub(formname,1,string.len(name))==name
+        return string.sub(formname, 1, string.len(name)) == name
     end
     --core.debug("FORM SUBMITTED",dump(player),dump(formname),dump(fields))
     if isForm(FORMNAME_TURTLE_INVENTORY) then
-        local id = tonumber(string.sub(formname,1+string.len(FORMNAME_TURTLE_INVENTORY)))
-        if fields.upload_code=="Upload Code" then
-            core.show_formspec(player:get_player_name(),FORMNAME_TURTLE_UPLOAD..id,turtle:get_formspec_upload());
-        elseif fields.open_terminal=="Open Terminal" then
-            core.show_formspec(player:get_player_name(),FORMNAME_TURTLE_TERMINAL..id,turtle:get_formspec_terminal());
-        elseif fields.factory_reset=="Factory Reset" then
-            return not turtle:upload_code_to_turtle(player,"",false)
+        local id = tonumber(string.sub(formname, 1+string.len(FORMNAME_TURTLE_INVENTORY)))
+        if fields.upload_code == "Upload Code" then
+            core.show_formspec(player:get_player_name(), FORMNAME_TURTLE_UPLOAD..id,turtle:get_formspec_upload());
+        elseif fields.open_terminal == "Open Terminal" then
+            core.show_formspec(player:get_player_name(), FORMNAME_TURTLE_TERMINAL..id,turtle:get_formspec_terminal());
+        elseif fields.factory_reset == "Factory Reset" then
+            return not turtle:upload_code_to_turtle(player, "", false)
         end
     elseif isForm(FORMNAME_TURTLE_TERMINAL) then
         if fields.terminal_out ~= nil then
@@ -24,7 +24,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
         local id = tonumber(string.sub(formname,1+string.len(FORMNAME_TURTLE_TERMINAL)))
         turtle.lastCommandRan = fields.terminal_in
         local command = fields.terminal_in
-        if command==nil or command=="" then
+        if command == nil or command == "" then
             return nil
         end
         command = "function init(turtle) return "..command.." end"
@@ -35,7 +35,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
         end
         commandResult = fields.terminal_in.." -> "..commandResult
         turtle.previous_answers[#turtle.previous_answers+1] = commandResult
-        core.show_formspec(player:get_player_name(),FORMNAME_TURTLE_TERMINAL..id,turtle:get_formspec_terminal());
+        core.show_formspec(player:get_player_name(), FORMNAME_TURTLE_TERMINAL..id, turtle:get_formspec_terminal());
     elseif isForm(FORMNAME_TURTLE_UPLOAD) then
         local id = tonumber(string.sub(formname,1+string.len(FORMNAME_TURTLE_UPLOAD)))
         if fields.button_upload == nil or fields.upload == nil then
@@ -43,9 +43,9 @@ core.register_on_player_receive_fields(function(player, formname, fields)
         end
         return not turtle:upload_code_to_turtle(player,fields.upload,false)
     else
-        return false--Unknown formname, input not processed
+        return false --Unknown formname, input not processed
     end
-    return true--Known formname, input processed "If function returns `true`, remaining functions are not called"
+    return true --Known formname, input processed "If function returns `true`, remaining functions are not called"
 end)
 
 local ComputerNormalEntity = {
@@ -99,7 +99,7 @@ function ComputerNormalEntity:get_staticdata()
     return core.serialize({
         id = self.id,
         name = self.name,
-        coroutine = nil,--self.coroutine,
+        coroutine = nil, --self.coroutine,
     })
 end
 

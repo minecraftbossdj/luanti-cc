@@ -9,7 +9,7 @@ function vENV.print(...)
 end
 
 if HELPER.fileExists(ROOT.."startup.lua") then
-    local func = loadfile(ROOT.."startup.lua","t")
-    setfenv(func,vENV)
+    local func = loadfile(ROOT.."startup.lua", "t")
+    setfenv(func, vENV)
     func()
 end

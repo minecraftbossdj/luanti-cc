@@ -10,7 +10,7 @@ core.register_node(MODID..":computer_normal", {
     },
     groups = {oddly_breakable_by_hand = 2},
     on_construct = function(pos)
-        local computer = core.add_entity(pos,MODID..":computer_normal")
+        local computer = core.add_entity(pos, MODID..":computer_normal")
         computer = computer:get_luaentity()
         core.remove_node(pos)
     end,
