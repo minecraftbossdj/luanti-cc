@@ -1,1 +1,1 @@
-core.log("Computer id (ID) loaded!")
+core.log("Computer id "..tostring(ID).." loaded!")
