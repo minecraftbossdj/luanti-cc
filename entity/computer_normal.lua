@@ -68,7 +68,6 @@ local ComputerNormalEntity = {
         },
         automatic_rotate = 0,
         id = -1,
-        active = false
     },
 }
 
@@ -81,7 +80,15 @@ function ComputerNormalEntity:on_activate(staticdata, dtime_s)
     self.coroutine = data.coroutine or nil
 
     COMPUTERS[self.id] = self
-    local vENV = {core = core, ID = self.id, tostring = tostring}
+    if not HELPER.dirExists(WORLDPATH.."/computercraft/computer") then
+        core.mkdir(WORLDPATH.."/computercraft/computer")
+    end
+    if not HELPER.dirExists(WORLDPATH.."/computercraft/computer/"..tostring(self.id)) then
+        core.mkdir(WORLDPATH.."/computercraft/computer/"..tostring(self.id))
+    end
+
+    local vENV = {core = core, ID = self.id, tostring = tostring, WORLDPATH = WORLDPATH, MODPATH = MODPATH, HELPER = HELPER}
+
     local func = loadfile(MODPATH.."/resources/init.lua","t")
     setfenv(func,vENV)
     func()
