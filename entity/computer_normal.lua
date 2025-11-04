@@ -50,7 +50,7 @@ end)
 
 local ComputerNormalEntity = {
     initial_properties = {
-        hp_max = 999,
+        hp_max = 1, --for now, until we figure out how to make it breakable
         is_visible = true,
         makes_footstep_sound = false,
         physical = true,
@@ -87,7 +87,11 @@ function ComputerNormalEntity:on_activate(staticdata, dtime_s)
         core.mkdir(WORLDPATH.."/computercraft/computer/"..tostring(self.id))
     end
 
-    local vENV = {core = core, ID = self.id, tostring = tostring, WORLDPATH = WORLDPATH, MODPATH = MODPATH, HELPER = HELPER}
+    local vENV = {core = core, ID = self.id, WORLDPATH = WORLDPATH, MODPATH = MODPATH, HELPER = HELPER}
+
+    for i, v in pairs(_G) do
+        vENV[i] = v
+    end
 
     local func = loadfile(MODPATH.."/resources/init.lua","t")
     setfenv(func,vENV)
